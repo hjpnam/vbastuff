@@ -9,7 +9,7 @@ Sub tcptiff()
     tcp = Range("F1").Value
     tiff = Range("F2").Value
     
-   ' On Error GoTo Errorcatch
+    ' On Error GoTo Errorcatch
     
     For Each a In Selection.Areas
         For Each b In a.Cells
