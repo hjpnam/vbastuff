@@ -1,0 +1,46 @@
+Sub tcptiff()
+    Dim a As Range
+    Dim b As Range
+    Dim tcp As String
+    Dim tiff As String
+    Dim eebo As String
+    Dim facpage As String
+
+    tcp = Range("F1").Value
+    tiff = Range("F2").Value
+    
+   ' On Error GoTo Errorcatch
+    
+    For Each a In Selection.Areas
+        For Each b In a.Cells
+            eebo = b.Value
+            facpage = b.Offset(, 3).Value
+            
+            
+            If IsEmpty(b.Offset(, 3)) = False Then
+                If Len(eebo) = 2 Then
+                    b.Offset(, 1).Value = tcp & "-" & "00" & Left(eebo, 1) & "-" & Right(eebo, 1)
+                
+                ElseIf Len(eebo) = 3 Then
+                    b.Offset(, 1).Value = tcp & "-" & "0" & Left(eebo, 2) & "-" & Right(eebo, 1)
+                
+                End If
+                
+                If Len(facpage) = 1 Then
+                    b.Offset(, 2).Value = tiff & "_Page_00" & facpage
+                
+                ElseIf Len(facpage) = 2 Then
+                    b.Offset(, 2).Value = tiff & "_Page_0" & facpage
+                
+                ElseIf Len(facpage) = 3 Then
+                    b.Offset(, 2).Value = tiff & "_Page_" & facpage
+                
+                End If
+                
+            End If
+            
+            Next b
+        Next a
+    
+'Errorcatch:     MsgBox Err.Description
+End Sub
